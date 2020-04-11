@@ -1,12 +1,15 @@
 package index;
 
 import utils.FileUtils;
+import utils.Stemmer;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
 
 public class IndexUtils {
+
+    private static Stemmer stemmer = new Stemmer();
 
     public static Map<String, Integer> countAppearances(String text, List<String> exceptions, List<String> stopWords) {
         Map<String, Integer> result = new TreeMap<>();
@@ -116,7 +119,9 @@ public class IndexUtils {
     }
 
     private static String getBaseForm(String in) {
-        return in;
+        stemmer.add(in.toCharArray(), in.length());
+        stemmer.stem();
+        return stemmer.toString();
     }
 
     public static Map<String, Map<String, Integer>> getDirectIndex(String filePath) {
@@ -140,7 +145,7 @@ public class IndexUtils {
                 else
                     break;
 
-            if (data.startsWith("E:\\Facultate\\Materiale an 4\\Rezolvari Marinel\\Sem2\\RIW")) {
+            if (data.startsWith(FileUtils.ABSOLUTE_PATH_PREFIX)) {
                 currentFilePath = data;
             } else {
                 String[] wordsWithAppearances = splitBySeparator(data, ':');
@@ -183,7 +188,7 @@ public class IndexUtils {
                     data=scanner.nextLine();
                 else
                     break;
-            if (data.startsWith("E:\\Facultate\\Materiale an 4\\Rezolvari Marinel\\Sem2\\RIW")) {
+            if (data.startsWith(FileUtils.ABSOLUTE_PATH_PREFIX)) {
                 if(currentFilePath != null){
                     FileUtils.writeToFile(currentFilePath, stringBuilder.toString(), true);
                     stringBuilder= new StringBuilder();
@@ -234,7 +239,7 @@ public class IndexUtils {
                     data=scanner.nextLine();
                 else
                     break;
-            if (data.startsWith("\tE:\\Facultate\\Materiale an 4\\Rezolvari Marinel\\Sem2\\RIW")) {
+            if (data.startsWith("\t"+FileUtils.ABSOLUTE_PATH_PREFIX)) {
                 if(currentWord != null && inverseIndex.containsKey(currentWord)){
                     String[] documentWithAppearances = splitBySeparator(data,'-');
                     inverseIndex.get(currentWord).put(documentWithAppearances[0], Integer.parseInt(documentWithAppearances[1]));
@@ -281,6 +286,4 @@ public class IndexUtils {
         result[1] = sb.toString();
         return result;
     }
-
-
 }

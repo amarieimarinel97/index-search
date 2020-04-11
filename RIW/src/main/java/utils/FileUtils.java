@@ -12,6 +12,7 @@ public class FileUtils {
     public static final String DIRECT_INTERMEDIATE_PATH = "mapreduce/direct_intermediate/";
     public static final String DIRECT_INDEX_PATH = "mapreduce/direct_index.txt";
     public static final String WORKING_DIRECTORY_PATH = "E:\\Facultate\\Materiale an 4\\Rezolvari Marinel\\Sem2\\RIW\\WD";
+    public static final String ABSOLUTE_PATH_PREFIX = "E:\\Facultate\\Materiale an 4\\Rezolvari Marinel\\Sem2\\RIW";
 
     public static String readFromFile(String path) {
         StringBuilder sb = new StringBuilder();
