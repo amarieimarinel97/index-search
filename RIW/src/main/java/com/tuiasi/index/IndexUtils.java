@@ -1,17 +1,36 @@
-package index;
+package com.tuiasi.index;
 
-import utils.FileUtils;
-import utils.Stemmer;
+import com.tuiasi.model.DirectIndexEntry;
+import com.tuiasi.model.InverseIndexEntry;
+import com.tuiasi.model.utils.DocumentAppearancesPair;
+import com.tuiasi.model.utils.WordAppearancesPair;
+import com.tuiasi.repository.DirectIndexRepository;
+import com.tuiasi.repository.InverseIndexRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import com.tuiasi.utils.FileUtils;
+import com.tuiasi.utils.Stemmer;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
 
+@Component
 public class IndexUtils {
 
-    private static Stemmer stemmer = new Stemmer();
+    @Autowired
+    private Stemmer stemmer;
 
-    public static Map<String, Integer> countAppearances(String text, List<String> exceptions, List<String> stopWords) {
+    @Autowired
+    private FileUtils fileUtils;
+
+    @Autowired
+    private InverseIndexRepository inverseIndexRepository;
+
+    @Autowired
+    private DirectIndexRepository directIndexRepository;
+
+    public Map<String, Integer> countAppearances(String text, List<String> exceptions, List<String> stopWords) {
         Map<String, Integer> result = new TreeMap<>();
         StringBuilder currentWord = new StringBuilder();
 
@@ -41,7 +60,7 @@ public class IndexUtils {
     }
 
 
-    public static Map<String, Integer> countAppearancesCharByChar(String path, List<String> exceptions, List<String> stopWords) throws IOException {
+    public Map<String, Integer> countAppearancesCharByChar(String path, List<String> exceptions, List<String> stopWords) throws IOException {
         Map<String, Integer> result = new TreeMap<>();
         StringBuilder currentWord = new StringBuilder();
 
@@ -77,14 +96,14 @@ public class IndexUtils {
         return result;
     }
 
-    public static Map<String, Integer> getDictionaryWordsCharByChar(List<File> files, List<String> exceptions, List<String> stopWords) throws IOException {
+    public Map<String, Integer> getDictionaryWordsCharByChar(List<File> files, List<String> exceptions, List<String> stopWords) throws IOException {
         Map<String, Integer> dictionary = new TreeMap<>();
         for (File file : files)
             dictionary.putAll(countAppearancesCharByChar(file.getPath(), exceptions, stopWords));
         return dictionary;
     }
 
-    public static List<File> getTextFilesFromDirectory(String path) {
+    public List<File> getTextFilesFromDirectory(String path) {
         List<File> directories = new ArrayList<>();
         List<File> files = new ArrayList<>();
         directories.add(new File(path));
@@ -101,12 +120,12 @@ public class IndexUtils {
         return files;
     }
 
-    public static Map<String, Integer> getDictionaryWords(List<File> files, List<String> exceptions, List<String> stopWords) {
+    public Map<String, Integer> getDictionaryWords(List<File> files, List<String> exceptions, List<String> stopWords) {
         Map<String, Integer> dictionary = new TreeMap<>();
         StringBuilder sb = new StringBuilder();
         for (File file : files) {
             sb.append(file.getPath()).append("\n{\n");
-            Map<String, Integer> intermediateResult = countAppearances(FileUtils.readFromFile(file.getPath()), exceptions, stopWords);
+            Map<String, Integer> intermediateResult = countAppearances(fileUtils.readFromFile(file.getPath()), exceptions, stopWords);
             intermediateResult.forEach((k, v) ->
                     sb.append(k).append(":")
                             .append(v).append("\n")
@@ -114,17 +133,17 @@ public class IndexUtils {
             sb.append("}\n");
             dictionary.putAll(intermediateResult);
         }
-        FileUtils.writeToFile(FileUtils.DIRECT_INDEX_PATH, sb.toString(), true);
+        fileUtils.writeToFile(fileUtils.DIRECT_INDEX_PATH, sb.toString(), true);
         return dictionary;
     }
 
-    private static String getBaseForm(String in) {
+    private String getBaseForm(String in) {
         stemmer.add(in.toCharArray(), in.length());
         stemmer.stem();
         return stemmer.toString();
     }
 
-    public static Map<String, Map<String, Integer>> getDirectIndex(String filePath) {
+    public Map<String, Map<String, Integer>> getDirectIndex(String filePath) {
         StringBuilder stringBuilder = new StringBuilder();
 
         Map<String, Map<String, Integer>> index = new TreeMap<>();
@@ -139,13 +158,13 @@ public class IndexUtils {
         String currentFilePath = "";
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
-            if(data.startsWith("}")||data.startsWith("{"))
-                if(scanner.hasNextLine())
-                    data=scanner.nextLine();
+            if (data.startsWith("}") || data.startsWith("{"))
+                if (scanner.hasNextLine())
+                    data = scanner.nextLine();
                 else
                     break;
 
-            if (data.startsWith(FileUtils.ABSOLUTE_PATH_PREFIX)) {
+            if (data.startsWith(fileUtils.ABSOLUTE_PATH_PREFIX)) {
                 currentFilePath = data;
             } else {
                 String[] wordsWithAppearances = splitBySeparator(data, ':');
@@ -170,7 +189,7 @@ public class IndexUtils {
         return index;
     }
 
-    public static void writeIntermediateFilesDirectIndex(String path){
+    public void writeIntermediateFilesDirectIndex(String path) {
         StringBuilder stringBuilder = new StringBuilder();
 
         File fileInput = new File(path);
@@ -183,33 +202,33 @@ public class IndexUtils {
         String currentFilePath = null;
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
-            if(data.startsWith("}")||data.startsWith("{"))
-                if(scanner.hasNextLine())
-                    data=scanner.nextLine();
+            if (data.startsWith("}") || data.startsWith("{"))
+                if (scanner.hasNextLine())
+                    data = scanner.nextLine();
                 else
                     break;
-            if (data.startsWith(FileUtils.ABSOLUTE_PATH_PREFIX)) {
-                if(currentFilePath != null){
-                    FileUtils.writeToFile(currentFilePath, stringBuilder.toString(), true);
-                    stringBuilder= new StringBuilder();
+            if (data.startsWith(fileUtils.ABSOLUTE_PATH_PREFIX)) {
+                if (currentFilePath != null) {
+                    fileUtils.writeToFile(currentFilePath, stringBuilder.toString(), true);
+                    stringBuilder = new StringBuilder();
                 }
-                currentFilePath = FileUtils.DIRECT_INTERMEDIATE_PATH + new File(data).getName();
+                currentFilePath = fileUtils.DIRECT_INTERMEDIATE_PATH + new File(data).getName();
             } else {
-                String[] wordsWithAppearances = splitBySeparator(data,':');
+                String[] wordsWithAppearances = splitBySeparator(data, ':');
                 stringBuilder.append(wordsWithAppearances[0])
                         .append(":")
                         .append(wordsWithAppearances[1])
                         .append("\n");
-                }
             }
+        }
         scanner.close();
     }
 
-    public static void writeInverseIndex(Map<String, Map<String, Integer>> index){
+    public void writeInverseIndex(Map<String, Map<String, Integer>> index) {
         StringBuilder stringBuilder = new StringBuilder();
-        for(String key :index.keySet()){
+        for (String key : index.keySet()) {
             stringBuilder.append(key).append("{");
-            for(String directory : index.get(key).keySet()) {
+            for (String directory : index.get(key).keySet()) {
                 stringBuilder.append("\n\t")
                         .append(directory)
                         .append("-")
@@ -217,10 +236,10 @@ public class IndexUtils {
             }
             stringBuilder.append("\n}\n");
         }
-        FileUtils.writeToFile(FileUtils.INVERSE_INDEX_PATH, stringBuilder.toString(), false);
+        fileUtils.writeToFile(fileUtils.INVERSE_INDEX_PATH, stringBuilder.toString(), false);
     }
 
-    public static Map<String, Map<String, Integer>> readInverseIndex(String path){
+    public Map<String, Map<String, Integer>> readInverseIndex(String path) {
         Map<String, Map<String, Integer>> inverseIndex = new TreeMap<>();
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -234,18 +253,18 @@ public class IndexUtils {
         String currentWord = null;
         while (scanner.hasNextLine()) {
             String data = scanner.nextLine();
-            if(data.startsWith("}")||data.startsWith("{"))
-                if(scanner.hasNextLine())
-                    data=scanner.nextLine();
+            if (data.startsWith("}") || data.startsWith("{"))
+                if (scanner.hasNextLine())
+                    data = scanner.nextLine();
                 else
                     break;
-            if (data.startsWith("\t"+FileUtils.ABSOLUTE_PATH_PREFIX)) {
-                if(currentWord != null && inverseIndex.containsKey(currentWord)){
-                    String[] documentWithAppearances = splitBySeparator(data,'-');
+            if (data.startsWith("\t" + fileUtils.ABSOLUTE_PATH_PREFIX)) {
+                if (currentWord != null && inverseIndex.containsKey(currentWord)) {
+                    String[] documentWithAppearances = splitBySeparator(data, '-');
                     inverseIndex.get(currentWord).put(documentWithAppearances[0], Integer.parseInt(documentWithAppearances[1]));
                 }
             } else {
-                currentWord = data.substring(0,data.length()-1);
+                currentWord = data.substring(0, data.length() - 1);
                 inverseIndex.put(currentWord, new TreeMap<>());
             }
         }
@@ -254,24 +273,24 @@ public class IndexUtils {
         return inverseIndex;
     }
 
-    public static void writeIntermediateFilesInverseIndex(Map<String, Map<String, Integer>> index){
+    public void writeIntermediateFilesInverseIndex(Map<String, Map<String, Integer>> index) {
         StringBuilder stringBuilder = new StringBuilder();
-        for(String key :index.keySet()){
-                stringBuilder.append(key);
-               for(String directory : index.get(key).keySet()) {
-                   stringBuilder.append("\n")
-                           .append(directory)
-                           .append("-")
-                           .append(index.get(key).get(directory));
-               }
-                stringBuilder.append("\n");
-                FileUtils.writeToFile(FileUtils.INVERSE_INTERMEDIATE_PATH + key.charAt(0) + ".txt",
-                        stringBuilder.toString(), true);
-                stringBuilder = new StringBuilder();
+        for (String key : index.keySet()) {
+            stringBuilder.append(key);
+            for (String directory : index.get(key).keySet()) {
+                stringBuilder.append("\n")
+                        .append(directory)
+                        .append("-")
+                        .append(index.get(key).get(directory));
+            }
+            stringBuilder.append("\n");
+            fileUtils.writeToFile(fileUtils.INVERSE_INTERMEDIATE_PATH + key.charAt(0) + ".txt",
+                    stringBuilder.toString(), true);
+            stringBuilder = new StringBuilder();
         }
     }
 
-    public static String[] splitBySeparator(String text, Character separator) {
+    public String[] splitBySeparator(String text, Character separator) {
         String[] result = new String[2];
         char[] chars = text.toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -285,5 +304,50 @@ public class IndexUtils {
         }
         result[1] = sb.toString();
         return result;
+    }
+
+    public void initDatabase(boolean cleanDatabaseBefore) {
+        if(cleanDatabaseBefore){
+            inverseIndexRepository.deleteAll();
+            directIndexRepository.deleteAll();
+        }
+
+        List<String> exceptions = fileUtils.splitByNewLine(fileUtils.readFromFile("exceptions.txt"));
+        List<String> stopWords = fileUtils.splitByNewLine(fileUtils.readFromFile("stopwords.txt"));
+
+        fileUtils.clearDirectory(fileUtils.INVERSE_INTERMEDIATE_PATH);
+        fileUtils.clearDirectory(fileUtils.DIRECT_INTERMEDIATE_PATH);
+        fileUtils.writeToFile(fileUtils.DIRECT_INDEX_PATH, "", false);
+
+        Map<String, Integer> dictionary = this.getDictionaryWords(
+                this.getTextFilesFromDirectory(fileUtils.WORKING_DIRECTORY_PATH),
+                exceptions, stopWords);
+        Map<String, Map<String, Integer>> directIndex = this.getDirectIndex(fileUtils.DIRECT_INDEX_PATH);
+        this.writeIntermediateFilesDirectIndex(fileUtils.DIRECT_INDEX_PATH);
+
+        this.writeIntermediateFilesInverseIndex(directIndex);
+        this.writeInverseIndex(directIndex);
+        Map<String, Map<String, Integer>> inverseIndex = this.readInverseIndex(fileUtils.INVERSE_INDEX_PATH);
+
+        int counter = 0;
+        for (Map.Entry<String, Map<String, Integer>> entry : directIndex.entrySet()) {
+            directIndexRepository.add(DirectIndexEntry.builder()
+                    .document(entry.getKey())
+                    .words(WordAppearancesPair.fromMapToList(entry.getValue()))
+                    .build());
+            counter++;
+        }
+        System.out.println("Inserted " + counter + " documents.");
+
+        counter = 0;
+        for (Map.Entry<String, Map<String, Integer>> entry : inverseIndex.entrySet()) {
+            inverseIndexRepository.add(InverseIndexEntry.builder()
+                    .word(entry.getKey())
+                    .documents(DocumentAppearancesPair.fromMapToList(entry.getValue()))
+                    .build());
+            counter++;
+        }
+        System.out.println("Inserted " + counter + " words.");
+
     }
 }

@@ -1,8 +1,8 @@
-package model;
+package com.tuiasi.model;
 
 import lombok.Builder;
 import lombok.Data;
-import model.utils.DocumentAppearancesPair;
+import com.tuiasi.model.utils.DocumentAppearancesPair;
 
 import java.util.List;
 

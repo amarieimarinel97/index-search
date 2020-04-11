@@ -1,6 +1,5 @@
 zap
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\1.txt-1
-zapping
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\2.txt-1
 zeal
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\example.com\articles\sports\7.txt-1
@@ -18,25 +17,21 @@ E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\1.txt-1
 zinebi
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\example.com\articles\sports\7.txt-2
 zip
-E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\1.txt-3
-zippers
+E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\1.txt-4
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\2.txt-1
-zips
-E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\1.txt-1
+zipper
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\2.txt-1
 zobeida
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\example.com\articles\sports\7.txt-31
 zone
-E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\2.txt-4
+E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\2.txt-2
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\6.txt-1
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\example.com\categories\11.txt-1
-zones
-E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\2.txt-1
 zoom
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\1.txt-1
 zouman
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\example.com\articles\sports\7.txt-1
-zulus
+zulu
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\example.com\articles\sports\7.txt-1
 zurich
 E:\Facultate\Materiale an 4\Rezolvari Marinel\Sem2\RIW\WD\http\5.txt-3

@@ -1,13 +1,21 @@
-package utils;
+package com.tuiasi.utils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import java.io.File;
+
+@Component
 public class HTMLUtils {
 
-    public static void displayHTMLInfo() {
-        String html = FileUtils.readFromFile("example.html");
+    @Autowired
+    private FileUtils fileUtils;
+
+    public void displayHTMLInfo() {
+        String html = fileUtils.readFromFile("example.html");
         Document doc = Jsoup.parse(html);
 
         String titleContent = doc.select("title").html();

@@ -1,20 +1,22 @@
-package index;
+package com.tuiasi.index;
+
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class BooleanSearch {
-    private static Map<String, Map<String, Integer>> inverseIndex = new TreeMap<>();
+    private Map<String, Map<String, Integer>> inverseIndex = new TreeMap<>();
 
-    public static Map<String, Map<String, Integer>> getInverseIndex() {
+    public Map<String, Map<String, Integer>> getInverseIndex() {
         return inverseIndex;
     }
 
-    public static void setInverseIndex(Map<String, Map<String, Integer>> inverseIndex) {
-        BooleanSearch.inverseIndex = inverseIndex;
+    public void setInverseIndex(Map<String, Map<String, Integer>> inverseIndex) {
+        this.inverseIndex = inverseIndex;
     }
 
-
-    public static Set<String> andOperation(String A, Set<String> BDocuments) {
+    public Set<String> andOperation(String A, Set<String> BDocuments) {
 
         Set<String> ADocuments = new TreeSet<>(inverseIndex.get(A).keySet());
         boolean isABiggerThanB = ADocuments.size() > BDocuments.size();
@@ -28,7 +30,7 @@ public class BooleanSearch {
     }
 
 
-    public static Set<String> orOperation(String A, Set<String> BDocuments) {
+    public Set<String> orOperation(String A, Set<String> BDocuments) {
         Set<String> ADocuments = new TreeSet<>(inverseIndex.get(A).keySet());
         boolean isABiggerThanB = ADocuments.size() > BDocuments.size();
         if (isABiggerThanB) {
@@ -41,19 +43,19 @@ public class BooleanSearch {
     }
 
 
-    public static Set<String> notOperation(Set<String> ADocuments, String B) {
+    public Set<String> notOperation(Set<String> ADocuments, String B) {
         Set<String> BDocuments = new TreeSet<>(inverseIndex.get(B).keySet());
         ADocuments.removeAll(BDocuments);
         return ADocuments;
     }
 
-    public static Set<String> notOperation(String A, Set<String> BDocuments) {
+    public Set<String> notOperation(String A, Set<String> BDocuments) {
         Set<String> ADocuments = new TreeSet<>(inverseIndex.get(A).keySet());
         ADocuments.removeAll(BDocuments);
         return ADocuments;
     }
 
-    public static Set<String> evaluateQuery(String query) {
+    public Set<String> evaluateQuery(String query) {
         //& = SI, | = SAU, ! = NOT
         Set<String> result = null;
         List<String> operands = new ArrayList<>();
@@ -81,18 +83,18 @@ public class BooleanSearch {
 
         for (int i = 1; i < operators.size(); ++i) {
             currentOperator = operators.get(i);
-            operandB=operands.get(i+1);
+            operandB = operands.get(i + 1);
             ASet = applyOperation(currentOperator, ASet, operandB);
 
         }
         return ASet;
     }
 
-    private static Set<String> applyOperation(String currentOperator, String operandA, String operandB) {
+    private Set<String> applyOperation(String currentOperator, String operandA, String operandB) {
         return applyOperation(currentOperator, new TreeSet<>(inverseIndex.get(operandA).keySet()), operandB);
     }
 
-    private static Set<String> applyOperation(String currentOperator, Set<String> ADocuments, String operandB) {
+    private Set<String> applyOperation(String currentOperator, Set<String> ADocuments, String operandB) {
         switch (currentOperator) {
             case "&":
                 return andOperation(operandB, ADocuments);

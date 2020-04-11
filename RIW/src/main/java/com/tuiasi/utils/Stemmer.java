@@ -1,6 +1,6 @@
-package utils;
+package com.tuiasi.utils;
 
-import java.io.*;
+import org.springframework.stereotype.Component;
 
 /**
  * Stemmer, implementing the Porter Stemming Algorithm
@@ -10,12 +10,13 @@ import java.io.*;
  * by calling one of the various stem(something) methods.
  */
 
+@Component
 public class Stemmer {
     private char[] b;
     private int i,     /* offset into b */
             i_end, /* offset to end of stemmed word */
             j, k;
-    private static final int INC = 50;
+    private final int INC = 50;
 
     /* unit of size whereby b is increased */
     public Stemmer() {

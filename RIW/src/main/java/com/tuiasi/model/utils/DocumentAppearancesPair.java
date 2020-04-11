@@ -1,4 +1,4 @@
-package model.utils;
+package com.tuiasi.model.utils;
 
 import lombok.Builder;
 import lombok.Data;
