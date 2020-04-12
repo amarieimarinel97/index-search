@@ -1,11 +1,21 @@
 package com.tuiasi.index;
 
+import com.tuiasi.utils.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Component
 public class BooleanSearch {
+
+    @Autowired
+    private IndexUtils indexUtils;
+
+    @Autowired
+    private FileUtils fileUtils;
+
     private Map<String, Map<String, Integer>> inverseIndex = new TreeMap<>();
 
     public Map<String, Map<String, Integer>> getInverseIndex() {
@@ -18,7 +28,7 @@ public class BooleanSearch {
 
     public Set<String> andOperation(String A, Set<String> BDocuments) {
 
-        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(A).keySet());
+        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(A)).keySet());
         boolean isABiggerThanB = ADocuments.size() > BDocuments.size();
         if (isABiggerThanB) {
             ADocuments.retainAll(BDocuments);
@@ -31,7 +41,7 @@ public class BooleanSearch {
 
 
     public Set<String> orOperation(String A, Set<String> BDocuments) {
-        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(A).keySet());
+        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(A)).keySet());
         boolean isABiggerThanB = ADocuments.size() > BDocuments.size();
         if (isABiggerThanB) {
             ADocuments.addAll(BDocuments);
@@ -44,13 +54,13 @@ public class BooleanSearch {
 
 
     public Set<String> notOperation(Set<String> ADocuments, String B) {
-        Set<String> BDocuments = new TreeSet<>(inverseIndex.get(B).keySet());
+        Set<String> BDocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(B)).keySet());
         ADocuments.removeAll(BDocuments);
         return ADocuments;
     }
 
     public Set<String> notOperation(String A, Set<String> BDocuments) {
-        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(A).keySet());
+        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(A)).keySet());
         ADocuments.removeAll(BDocuments);
         return ADocuments;
     }
@@ -91,7 +101,7 @@ public class BooleanSearch {
     }
 
     private Set<String> applyOperation(String currentOperator, String operandA, String operandB) {
-        return applyOperation(currentOperator, new TreeSet<>(inverseIndex.get(operandA).keySet()), operandB);
+        return applyOperation(currentOperator, new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(operandA)).keySet()), operandB);
     }
 
     private Set<String> applyOperation(String currentOperator, Set<String> ADocuments, String operandB) {
@@ -106,6 +116,12 @@ public class BooleanSearch {
                 System.out.println("Operator necunoscut: " + currentOperator);
                 return new TreeSet<>();
         }
+    }
+
+    @PostConstruct
+    private void initInverseIndex() {
+        this.inverseIndex = indexUtils.readInverseIndex(fileUtils.INVERSE_INDEX_PATH);
+        System.out.println("Inverse index initialized.");
     }
 
 

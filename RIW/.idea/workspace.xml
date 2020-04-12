@@ -2,58 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52bd226-f41d-4b82-85eb-3822a8c0c112" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/11.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/11.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/6.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/7.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/direct_intermediate/9.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/direct_intermediate/9.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/a.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/a.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/b.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/b.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/c.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/c.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/d.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/d.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/e.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/e.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/f.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/f.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/g.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/g.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/h.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/h.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/i.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/i.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/j.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/j.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/k.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/k.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/l.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/l.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/m.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/m.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/n.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/n.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/o.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/o.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/p.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/p.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/q.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/q.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/r.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/r.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/s.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/s.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/t.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/t.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/u.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/u.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/v.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/v.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/w.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/w.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/y.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/y.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mapreduce/inverse_intermediate/z.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_intermediate/z.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/index/BooleanSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/index/IndexUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/DirectIndexEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/model/DirectIndexEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/InverseIndexEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/model/InverseIndexEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/utils/DocumentAppearancesPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/model/utils/DocumentAppearancesPair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/utils/WordAppearancesPair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/model/utils/WordAppearancesPair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/DirectIndexRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/repository/DirectIndexRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/InverseIndexRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/repository/InverseIndexRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/FileUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/utils/FileUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/HTMLUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/utils/HTMLUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Stemmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/utils/Stemmer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -198,7 +151,8 @@
       <workItem from="1586603526353" duration="2236000" />
       <workItem from="1586612219637" duration="3577000" />
       <workItem from="1586615938251" duration="315000" />
-      <workItem from="1586616280467" duration="5961000" />
+      <workItem from="1586616280467" duration="6058000" />
+      <workItem from="1586674229128" duration="1638000" />
     </task>
     <servers />
   </component>
@@ -222,9 +176,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/tuiasi/repository/InverseIndexRepository.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

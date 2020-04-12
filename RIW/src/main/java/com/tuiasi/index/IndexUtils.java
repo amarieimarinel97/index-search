@@ -137,7 +137,7 @@ public class IndexUtils {
         return dictionary;
     }
 
-    private String getBaseForm(String in) {
+    public String getBaseForm(String in) {
         stemmer.add(in.toCharArray(), in.length());
         stemmer.stem();
         return stemmer.toString();
@@ -259,6 +259,7 @@ public class IndexUtils {
                 else
                     break;
             if (data.startsWith("\t" + fileUtils.ABSOLUTE_PATH_PREFIX)) {
+                data=data.substring(1);
                 if (currentWord != null && inverseIndex.containsKey(currentWord)) {
                     String[] documentWithAppearances = splitBySeparator(data, '-');
                     inverseIndex.get(currentWord).put(documentWithAppearances[0], Integer.parseInt(documentWithAppearances[1]));
@@ -350,4 +351,5 @@ public class IndexUtils {
         System.out.println("Inserted " + counter + " words.");
 
     }
+
 }
