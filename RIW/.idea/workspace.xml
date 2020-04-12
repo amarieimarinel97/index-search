@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e52bd226-f41d-4b82-85eb-3822a8c0c112" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/DirectIndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/DirectIndexController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/SearchController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +152,7 @@
       <workItem from="1586612219637" duration="3577000" />
       <workItem from="1586615938251" duration="315000" />
       <workItem from="1586616280467" duration="6058000" />
-      <workItem from="1586674229128" duration="1638000" />
+      <workItem from="1586674229128" duration="4341000" />
     </task>
     <servers />
   </component>
@@ -171,16 +171,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/tuiasi/index/BooleanSearch.java</url>
-          <line>30</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

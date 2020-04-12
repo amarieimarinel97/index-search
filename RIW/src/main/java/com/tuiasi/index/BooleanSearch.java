@@ -3,11 +3,13 @@ package com.tuiasi.index;
 import com.tuiasi.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Component
+@CrossOrigin(origins = "*")
 public class BooleanSearch {
 
     @Autowired
@@ -121,7 +123,6 @@ public class BooleanSearch {
     @PostConstruct
     private void initInverseIndex() {
         this.inverseIndex = indexUtils.readInverseIndex(fileUtils.INVERSE_INDEX_PATH);
-        System.out.println("Inverse index initialized.");
     }
 
 
