@@ -13,7 +13,8 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      outputResults:""
+      outputResults: "",
+      searchInput: ""
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateInput = this.updateInput.bind(this);
@@ -22,20 +23,22 @@ export class App extends React.Component {
   }
 
   handleSubmit = () => {
-    var URL = this.GET_URL + encodeURIComponent(this.state.searchInput);
-    axios.get(URL, {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
+    if (this.state.searchInput.length > 0) {
+      var URL = this.GET_URL + encodeURIComponent(this.state.searchInput);
+      axios.get(URL, {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
       }
+      ).then(response => this.showOutput(response.data));
     }
-    ).then(response => this.showOutput(response.data));
-
   }
+
 
   showOutput = (data) => {
     var output = "";
     data.forEach(element => {
-      output+=element+"\n\n";
+      output += element + "\n\n";
     });
     this.setState({
       ...this.state,
@@ -61,11 +64,12 @@ export class App extends React.Component {
           <div id="input-container">
             <input type="text" id="searchInput" onChange={this.updateInput}></input>
             <button onClick={this.handleSubmit} >Search</button>
+            <div id="legend">| - OR, & - AND, ! - NOT</div>
           </div>
           <div id="output-container">
             <label>Results</label>
-            <textarea id="search-output" value={this.state.outputResults}>
-                
+            <textarea id="search-output" readOnly value={this.state.outputResults}>
+
             </textarea>
           </div>
         </div>

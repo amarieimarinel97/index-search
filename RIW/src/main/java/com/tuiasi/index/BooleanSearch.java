@@ -30,7 +30,7 @@ public class BooleanSearch {
 
     public Set<String> andOperation(String A, Set<String> BDocuments) {
 
-        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(A)).keySet());
+        Set<String> ADocuments = new TreeSet<>(getKeySetOrEmpty(indexUtils.getBaseForm(A)));
         boolean isABiggerThanB = ADocuments.size() > BDocuments.size();
         if (isABiggerThanB) {
             ADocuments.retainAll(BDocuments);
@@ -43,7 +43,7 @@ public class BooleanSearch {
 
 
     public Set<String> orOperation(String A, Set<String> BDocuments) {
-        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(A)).keySet());
+        Set<String> ADocuments = new TreeSet<>(getKeySetOrEmpty(indexUtils.getBaseForm(A)));
         boolean isABiggerThanB = ADocuments.size() > BDocuments.size();
         if (isABiggerThanB) {
             ADocuments.addAll(BDocuments);
@@ -56,13 +56,13 @@ public class BooleanSearch {
 
 
     public Set<String> notOperation(Set<String> ADocuments, String B) {
-        Set<String> BDocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(B)).keySet());
+        Set<String> BDocuments = new TreeSet<>(getKeySetOrEmpty(indexUtils.getBaseForm(B)));
         ADocuments.removeAll(BDocuments);
         return ADocuments;
     }
 
     public Set<String> notOperation(String A, Set<String> BDocuments) {
-        Set<String> ADocuments = new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(A)).keySet());
+        Set<String> ADocuments = new TreeSet<>(getKeySetOrEmpty(indexUtils.getBaseForm(A)));
         ADocuments.removeAll(BDocuments);
         return ADocuments;
     }
@@ -86,6 +86,9 @@ public class BooleanSearch {
                 sb.append(c);
             }
         }
+        if(operators.size()==0)
+            return getKeySetOrEmpty(sb.toString());
+
         operands.add(sb.toString());
         Set<String> ASet = null;
         String currentOperator = operators.get(0);
@@ -103,7 +106,7 @@ public class BooleanSearch {
     }
 
     private Set<String> applyOperation(String currentOperator, String operandA, String operandB) {
-        return applyOperation(currentOperator, new TreeSet<>(inverseIndex.get(indexUtils.getBaseForm(operandA)).keySet()), operandB);
+        return applyOperation(currentOperator, new TreeSet<>(getKeySetOrEmpty(indexUtils.getBaseForm(operandA))), operandB);
     }
 
     private Set<String> applyOperation(String currentOperator, Set<String> ADocuments, String operandB) {
@@ -118,6 +121,12 @@ public class BooleanSearch {
                 System.out.println("Operator necunoscut: " + currentOperator);
                 return new TreeSet<>();
         }
+    }
+
+    private Set<String> getKeySetOrEmpty(String A){
+        if(inverseIndex.containsKey(A))
+            return inverseIndex.get(A).keySet();
+        return new TreeSet<>();
     }
 
     @PostConstruct
