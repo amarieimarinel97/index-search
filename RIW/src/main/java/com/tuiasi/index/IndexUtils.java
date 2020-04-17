@@ -6,11 +6,13 @@ import com.tuiasi.model.utils.DocumentAppearancesPair;
 import com.tuiasi.model.utils.WordAppearancesPair;
 import com.tuiasi.repository.DirectIndexRepository;
 import com.tuiasi.repository.InverseIndexRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.tuiasi.utils.FileUtils;
 import com.tuiasi.utils.Stemmer;
 
+import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.*;
@@ -221,17 +223,19 @@ public class IndexUtils {
         scanner.close();
     }
 
+    @SneakyThrows
     public void writeInverseIndex(Map<String, Map<String, Integer>> index) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (String key : index.keySet()) {
-            stringBuilder.append(key).append("{");
-            for (String directory : index.get(key).keySet()) {
-                stringBuilder.append("\n\t")
-                        .append(directory)
-                        .append("-")
-                        .append(index.get(key).get(directory));
+        for(File f : new File(fileUtils.INVERSE_INTERMEDIATE_PATH).listFiles()){
+            Scanner scanner = new Scanner(f);
+            while(scanner.hasNextLine()){
+                    String data = scanner.nextLine();
+                    if(data.startsWith(fileUtils.WORKING_DIRECTORY_PATH)){
+                        stringBuilder.append("\t").append(data).append("\n");
+                    }else{
+                        stringBuilder.append("}\n").append(data).append("{\n");
+                    }
             }
-            stringBuilder.append("\n}\n");
         }
         fileUtils.writeToFile(fileUtils.INVERSE_INDEX_PATH, stringBuilder.toString(), false);
     }
@@ -272,19 +276,22 @@ public class IndexUtils {
     }
 
     public void writeIntermediateFilesInverseIndex(Map<String, Map<String, Integer>> index) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String key : index.keySet()) {
-            stringBuilder.append(key);
-            for (String directory : index.get(key).keySet()) {
-                stringBuilder.append("\n")
-                        .append(directory)
-                        .append("-")
-                        .append(index.get(key).get(directory));
+
+        Set<String> words = new TreeSet<>();
+        for(Map.Entry<String, Map<String, Integer>> entry : index.entrySet())
+            words.addAll(entry.getValue().keySet());
+
+        for(String word: words){
+            Map<String, Integer> appearances = new TreeMap<>();
+            for(Map.Entry<String, Map<String, Integer>> entry : index.entrySet()){
+                if(entry.getValue().containsKey(word))
+                    appearances.put(entry.getKey(), entry.getValue().get(word));
             }
-            stringBuilder.append("\n");
-            fileUtils.writeToFile(fileUtils.INVERSE_INTERMEDIATE_PATH + key.charAt(0) + ".txt",
-                    stringBuilder.toString(), true);
-            stringBuilder = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(word).append("\n");
+            for(Map.Entry<String, Integer> entry : appearances.entrySet())
+                stringBuilder.append(entry.getKey()).append("-").append(entry.getValue()).append("\n");
+            fileUtils.writeToFile(fileUtils.INVERSE_INTERMEDIATE_PATH+word.charAt(0)+".txt",stringBuilder.toString(),true);
         }
     }
 
@@ -316,6 +323,8 @@ public class IndexUtils {
         fileUtils.clearDirectory(fileUtils.INVERSE_INTERMEDIATE_PATH);
         fileUtils.clearDirectory(fileUtils.DIRECT_INTERMEDIATE_PATH);
         fileUtils.writeToFile(fileUtils.DIRECT_INDEX_PATH, "", false);
+        fileUtils.writeToFile(fileUtils.INVERSE_INDEX_PATH, "", false);
+
 
         Map<String, Integer> dictionary = this.writeDirectIndex(
                 this.getTextFilesFromDirectory(fileUtils.WORKING_DIRECTORY_PATH),
@@ -323,9 +332,11 @@ public class IndexUtils {
         Map<String, Map<String, Integer>> directIndex = this.getDirectIndex(fileUtils.DIRECT_INDEX_PATH);
         this.writeIntermediateFilesDirectIndex(fileUtils.DIRECT_INDEX_PATH);
 
+
         this.writeIntermediateFilesInverseIndex(directIndex);
         this.writeInverseIndex(directIndex);
         Map<String, Map<String, Integer>> inverseIndex = this.readInverseIndex(fileUtils.INVERSE_INDEX_PATH);
+
 
         int counter = 0;
         for (Map.Entry<String, Map<String, Integer>> entry : directIndex.entrySet()) {
@@ -348,30 +359,9 @@ public class IndexUtils {
         System.out.println("Inserted " + counter + " words.");
     }
 
-    public void initDirectIndex() {
-        directIndexRepository.deleteAll();
-
-        List<String> exceptions = fileUtils.splitByNewLine(fileUtils.readFromFile("exceptions.txt"));
-        List<String> stopWords = fileUtils.splitByNewLine(fileUtils.readFromFile("stopwords.txt"));
-
-        fileUtils.clearDirectory(fileUtils.DIRECT_INTERMEDIATE_PATH);
-        fileUtils.writeToFile(fileUtils.DIRECT_INDEX_PATH, "", false);
-
-        this.writeDirectIndex(this.getTextFilesFromDirectory(fileUtils.WORKING_DIRECTORY_PATH),
-                exceptions, stopWords);
-        Map<String, Map<String, Integer>> directIndex = this.getDirectIndex(fileUtils.DIRECT_INDEX_PATH);
-
-        int counter = 0;
-        for (Map.Entry<String, Map<String, Integer>> entry : directIndex.entrySet()) {
-            directIndexRepository.add(DirectIndexEntry.builder()
-                    .document(entry.getKey())
-                    .words(WordAppearancesPair.fromMapToList(entry.getValue()))
-                    .build());
-            counter++;
-        }
-        System.out.println("Inserted " + counter + " documents.");
-
-
+    @PostConstruct
+    private void init(){
+//        this.initDatabase(true);
     }
 
 }

@@ -134,5 +134,4 @@ public class BooleanSearch {
         this.inverseIndex = indexUtils.readInverseIndex(fileUtils.INVERSE_INDEX_PATH);
     }
 
-
 }

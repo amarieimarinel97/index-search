@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/search")
@@ -15,7 +16,13 @@ public class SearchController {
     private SearchService searchService;
 
     @GetMapping
-    public List<String> search(@RequestParam String query) {
-        return searchService.search(query);
+    public List<String> booleanSearch(@RequestParam String query, @RequestParam(required = false) Optional<Boolean> relevance) {
+        return searchService.booleanSearch(query, relevance.orElse(true));
+    }
+
+    @GetMapping("/tfidf")
+    @ResponseBody
+    public Double tfidfSearch(@RequestParam String word, @RequestParam String doc){
+        return searchService.tfidfSearch(word,doc);
     }
 }
