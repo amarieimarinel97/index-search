@@ -1,8 +1,10 @@
 package com.tuiasi.controller;
 
+import com.tuiasi.index.IndexUtils;
 import com.tuiasi.model.DirectIndexEntry;
 import com.tuiasi.service.DirectIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +25,13 @@ public class DirectIndexController {
         service.delete(doc);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String get(@RequestParam String doc) {
         return service.get(doc);
     }
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getAll() {
         return service.getAll();
@@ -39,4 +41,7 @@ public class DirectIndexController {
     public void deleteAll() {
         service.deleteAll();
     }
+
+
+
 }

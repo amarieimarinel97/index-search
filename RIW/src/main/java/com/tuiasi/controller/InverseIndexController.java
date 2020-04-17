@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tuiasi.model.InverseIndexEntry;
 import com.tuiasi.service.InverseIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,15 +25,15 @@ public class InverseIndexController {
         service.delete(word);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String get(@RequestParam String word) {
         return service.get(word);
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getAll(){
+    public String getAll() {
         return service.getAll();
     }
 

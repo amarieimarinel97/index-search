@@ -2,21 +2,10 @@ package com.tuiasi.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tuiasi.index.BooleanSearch;
-import com.tuiasi.index.IndexUtils;
 import com.tuiasi.model.DirectIndexEntry;
-import com.tuiasi.model.InverseIndexEntry;
-import com.tuiasi.model.utils.DocumentAppearancesPair;
-import com.tuiasi.model.utils.WordAppearancesPair;
 import com.tuiasi.repository.DirectIndexRepository;
-import com.tuiasi.repository.InverseIndexRepository;
-import com.tuiasi.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 @Service
 public class DirectIndexService {

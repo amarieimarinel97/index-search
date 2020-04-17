@@ -120,7 +120,7 @@ public class IndexUtils {
         return files;
     }
 
-    public Map<String, Integer> getDictionaryWords(List<File> files, List<String> exceptions, List<String> stopWords) {
+    public Map<String, Integer> writeDirectIndex(List<File> files, List<String> exceptions, List<String> stopWords) {
         Map<String, Integer> dictionary = new TreeMap<>();
         StringBuilder sb = new StringBuilder();
         for (File file : files) {
@@ -176,13 +176,10 @@ public class IndexUtils {
                         .append(wordsWithAppearances[1])
                         .append("\n");
 
-                if (index.containsKey(wordsWithAppearances[0])) {
-                    index.get(wordsWithAppearances[0]).put(currentFilePath, Integer.valueOf(wordsWithAppearances[1]));
-                } else {
-                    Map<String, Integer> currentWord = new TreeMap<>();
-                    currentWord.put(currentFilePath, Integer.valueOf(wordsWithAppearances[1]));
-                    index.put(wordsWithAppearances[0], currentWord);
-                }
+                if (!index.containsKey(currentFilePath))
+                    index.put(currentFilePath, new TreeMap<>());
+
+                index.get(currentFilePath).put(wordsWithAppearances[0], Integer.valueOf(wordsWithAppearances[1]));
             }
         }
         scanner.close();
@@ -259,7 +256,7 @@ public class IndexUtils {
                 else
                     break;
             if (data.startsWith("\t" + fileUtils.ABSOLUTE_PATH_PREFIX)) {
-                data=data.substring(1);
+                data = data.substring(1);
                 if (currentWord != null && inverseIndex.containsKey(currentWord)) {
                     String[] documentWithAppearances = splitBySeparator(data, '-');
                     inverseIndex.get(currentWord).put(documentWithAppearances[0], Integer.parseInt(documentWithAppearances[1]));
@@ -308,7 +305,7 @@ public class IndexUtils {
     }
 
     public void initDatabase(boolean cleanDatabaseBefore) {
-        if(cleanDatabaseBefore){
+        if (cleanDatabaseBefore) {
             inverseIndexRepository.deleteAll();
             directIndexRepository.deleteAll();
         }
@@ -320,7 +317,7 @@ public class IndexUtils {
         fileUtils.clearDirectory(fileUtils.DIRECT_INTERMEDIATE_PATH);
         fileUtils.writeToFile(fileUtils.DIRECT_INDEX_PATH, "", false);
 
-        Map<String, Integer> dictionary = this.getDictionaryWords(
+        Map<String, Integer> dictionary = this.writeDirectIndex(
                 this.getTextFilesFromDirectory(fileUtils.WORKING_DIRECTORY_PATH),
                 exceptions, stopWords);
         Map<String, Map<String, Integer>> directIndex = this.getDirectIndex(fileUtils.DIRECT_INDEX_PATH);
@@ -349,6 +346,31 @@ public class IndexUtils {
             counter++;
         }
         System.out.println("Inserted " + counter + " words.");
+    }
+
+    public void initDirectIndex() {
+        directIndexRepository.deleteAll();
+
+        List<String> exceptions = fileUtils.splitByNewLine(fileUtils.readFromFile("exceptions.txt"));
+        List<String> stopWords = fileUtils.splitByNewLine(fileUtils.readFromFile("stopwords.txt"));
+
+        fileUtils.clearDirectory(fileUtils.DIRECT_INTERMEDIATE_PATH);
+        fileUtils.writeToFile(fileUtils.DIRECT_INDEX_PATH, "", false);
+
+        this.writeDirectIndex(this.getTextFilesFromDirectory(fileUtils.WORKING_DIRECTORY_PATH),
+                exceptions, stopWords);
+        Map<String, Map<String, Integer>> directIndex = this.getDirectIndex(fileUtils.DIRECT_INDEX_PATH);
+
+        int counter = 0;
+        for (Map.Entry<String, Map<String, Integer>> entry : directIndex.entrySet()) {
+            directIndexRepository.add(DirectIndexEntry.builder()
+                    .document(entry.getKey())
+                    .words(WordAppearancesPair.fromMapToList(entry.getValue()))
+                    .build());
+            counter++;
+        }
+        System.out.println("Inserted " + counter + " documents.");
+
 
     }
 
