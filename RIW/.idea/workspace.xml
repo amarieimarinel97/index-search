@@ -4,11 +4,7 @@
     <list default="true" id="e52bd226-f41d-4b82-85eb-3822a8c0c112" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mapreduce/inverse_index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mapreduce/inverse_index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/controller/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/IndexUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/TFIDFSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/index/TFIDFSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/service/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/service/SearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuiasi/utils/Stemmer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuiasi/utils/Stemmer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../riw-fe/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../riw-fe/src/App.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -158,7 +154,7 @@
       <workItem from="1586709307722" duration="656000" />
       <workItem from="1586766873746" duration="3672000" />
       <workItem from="1586850281979" duration="33000" />
-      <workItem from="1587115300091" duration="12472000" />
+      <workItem from="1587115300091" duration="14056000" />
     </task>
     <servers />
   </component>

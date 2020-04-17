@@ -38,7 +38,8 @@ export class App extends React.Component {
   showOutput = (data) => {
     var output = "";
     data.forEach(element => {
-      output += element + "\n\n";
+      // eslint-disable-next-line
+      output += element.replace(/^.*[\\\/]/, '') + "\n\n";
     });
     this.setState({
       ...this.state,
